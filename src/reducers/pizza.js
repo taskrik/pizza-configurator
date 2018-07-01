@@ -1,62 +1,96 @@
-import {NEW_BASE, NEW_SAUSE, NEW_TOPPING, DRONE_DELIVERY } from '../actions/pizza'
+import {
+  NEW_BASE,
+  NEW_SAUSE,
+  NEW_TOPPING,
+  REMOVE_TOPPING,
+  DRONE_DELIVERY,
+  NODRONE_DELIVERY
+} from '../actions/pizza'
+import { pizzabases, sauses, toppings } from '../shared/data'
 
 const initialState = {
-
+  base: {
+    id: '',
+    price: ''
+  },
+  sauses: {
+    id: '',
+    price: ''
+  },
   toppings: [],
   delivery: false,
-    baseprice: 0,
-    toppingsPrices: 0,
-    sausePrice: 0,
   totalPrice: 0
 }
 
-export default function(state = initialState, action) {
-
-  switch(action.type) {
-
+export default function (state = initialState, action) {
+  switch (action.type) {
     case NEW_BASE:
-    if(state.baseprice === 0.00)
+      var price = state.totalPrice + pizzabases[action.payload.id - 1].price;
+      if (state.base.price !== '') {
+        price = state.totalPrice - state.base.price + pizzabases[action.payload.id - 1].price;
+      }
       return {
         ...state,
-          baseprice: action.payload,
-          totalPrice: state.totalPrice + parseFloat(action.payload)
+        base: {
+          id: pizzabases[action.payload.id - 1].id,
+          price: pizzabases[action.payload.id - 1].price
+        },
+        totalPrice: +(Math.round(price + "e+2") + "e-2")
       }
-      else {
-        return{
-          ...state,
-            baseprice: action.payload,
-            totalPrice: + parseFloat(action.payload)
-      }
-    }
-
     case NEW_SAUSE:
-          state.totalPrice = state.totalPrice
-        return{
-          ...state,
-            sausePrice: action.payload,
-            totalPrice: state.totalPrice + parseFloat(action.payload)
+      var price = state.totalPrice + sauses[action.payload.id - 1].price;
+      if (state.sauses.price !== '') {
+        price = parseFloat(state.totalPrice - state.sauses.price + sauses[action.payload.id - 1].price);
       }
-
-
+      return {
+        ...state,
+        sauses: {
+          id: sauses[action.payload.id - 1].id,
+          price: sauses[action.payload.id - 1].price
+        },
+        totalPrice: +(Math.round(price + "e+2") + "e-2")
+      }
     case NEW_TOPPING:
-    return {
-      ...state,
-      toppingsPrices: state.toppingsPrices = action.payload,
-      totalPrice: state.totalPrice + parseFloat(action.payload)
-    }
-
-
-    //
-    // case DRONE_DELIVERY:
-    // return {
-    //   ...state,
-    //   delivery: action.payload,
-    //   totalPrice:
-    // }
-
-
+      var price = state.totalPrice + toppings[action.payload.id - 1].price;
+      return {
+        ...state,
+        toppings: [...state.toppings, {
+          id: toppings[action.payload.id - 1].id,
+          price: toppings[action.payload.id - 1].price
+        }],
+        totalPrice: +(Math.round(price + "e+2") + "e-2")
+      }
+    case REMOVE_TOPPING:
+      var amount = state.toppings.length;
+      if (amount === 1) {
+        state.toppings = [];
+      } else {
+        var toppingsArray = state.toppings;
+        for (var i = 0; i < amount; i++) {
+          if (toppingsArray[i].id === action.payload.id - 1) {
+            state.toppings.splice(i, 1);
+            break;
+          }
+        }
+      }
+      var price = state.totalPrice - toppings[action.payload.id - 1].price;
+      return {
+        ...state,
+        totalPrice: +(Math.round(price + "e+2") + "e-2")
+      }
+    case DRONE_DELIVERY:
+      var price = state.totalPrice + state.totalPrice * 0.10;
+      return {
+        ...state,
+        totalPrice: +(Math.round(price + "e+2") + "e-2")
+      }
+    case NODRONE_DELIVERY:
+      var price = state.totalPrice * 100 / 110;
+      return {
+        ...state,
+        totalPrice: +(Math.round(price + "e+2") + "e-2")
+      }
     default:
       return state
-
   }
 }

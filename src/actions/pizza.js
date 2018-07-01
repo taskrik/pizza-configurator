@@ -11,3 +11,58 @@ export function selectBase(base) {
     payload: base
   }
 }
+
+// export function newSauce(sause) {
+//   return {
+//     type: NEW_BASE,
+//     payload: {
+//       sauses: [sause]
+//     }
+//   }
+// }
+
+// export function newSauce(sause) {
+//   return {
+//     type: NEW_BASE,
+//     payload: {
+//       sauses: [sause]
+//     }
+//   }
+// }
+
+
+// export function selectSause(word , guesses) {
+//
+//   return {
+//
+//     type: NEW_SAUSE,
+//     payload: {
+//       word: newWord ,
+//        guesses: []
+//      }
+//   }
+// }
+//
+// export function selectToppings(word , guesses) {
+//   const newWord = randomWord()
+//   return {
+//
+//     type: NEW_TOPPING,
+//     payload: {
+//       word: newWord ,
+//        guesses: []
+//      }
+//   }
+// }
+//
+// export function selectDelivery(word , guesses) {
+//   const newWord = randomWord()
+//   return {
+//
+//     type: DRONE_DELIVERY,
+//     payload: {
+//       word: newWord ,
+//        guesses: []
+//      }
+//   }
+// }
