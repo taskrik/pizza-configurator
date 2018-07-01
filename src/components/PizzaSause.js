@@ -1,5 +1,7 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
+import React, {PureComponent} from 'react'
+import {connect} from 'react-redux'
+import {newSause} from '../actions/pizza'
+import {sauses} from '../shared/data'
 
 class PizzaSause extends React.PureComponent {
   constructor(props) {
@@ -8,43 +10,25 @@ class PizzaSause extends React.PureComponent {
   }
 
   onSelect(e) {
-    this.props.dispatch({
-      type: 'NEW_SAUSE',
-      payload: {
-        id: e.target.value
-      }
-    });
+    this.props.newSause(e.target.value);
   }
 
   render() {
-    return (
-      <div className="sauce-options">
-        <h1>Step 2: Select Sauce!</h1>
-        <label>
-          <input type="radio" value="1" name="sauce-option" onChange={this.onSelect} />
-          <b>White Sauce € 0,00</b>
-        </label><br />
-        <label>
-          <input type="radio" value="2" name="sauce-option" onChange={this.onSelect} />
-          <b>Red Sauce € 0,00</b>
-        </label><br />
-        <label>
-          <input type="radio" value="3" name="sauce-option" onChange={this.onSelect} />
-          <b>Double Red Sauce € 1,00</b>
-        </label><br />
-        <label>
-          <input type="radio" value="4" name="sauce-option" onChange={this.onSelect} />
-          <b>Mix it up! € 1,50</b>
-        </label>
-      </div>
-    );
+    return (<div className="sauce-options">
+      <h1>Step 2: Select Sauce!</h1>
+      {
+        sauses.map((sauce) => <label>
+          <input type="radio" value={sauce.id} name="base-option" onChange={this.onSelect}/>
+          <b>{sauce.name} -
+                {sauce.price}&euro; </b><br/>
+        </label>)
+      }
+    </div>);
   }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    pizza: state.pizza
-  }
+  return {pizza: state.pizza}
 }
 
-export default connect(mapStateToProps)(PizzaSause)
+export default connect(mapStateToProps, {newSause})(PizzaSause)

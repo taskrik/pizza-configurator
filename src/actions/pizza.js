@@ -8,61 +8,53 @@ export const NODRONE_DELIVERY = 'NODRONE_DELIVERY'
 export function selectBase(base) {
   return {
     type: NEW_BASE,
-    payload: base
+    payload: {
+      id: base
+    }
   }
 }
 
-// export function newSauce(sause) {
-//   return {
-//     type: NEW_BASE,
-//     payload: {
-//       sauses: [sause]
-//     }
-//   }
-// }
+export function newSause(sause) {
+  return {
+    type: NEW_SAUSE,
+    payload: {
+      id: sause
+    }
+  }
+}
 
-// export function newSauce(sause) {
-//   return {
-//     type: NEW_BASE,
-//     payload: {
-//       sauses: [sause]
-//     }
-//   }
-// }
+export function newTopping(topping) {
+  return {
+    type: NEW_TOPPING,
+    payload: {
+      id: topping
+    }
+  }
+}
 
+export function removeTopping(topping) {
+  return {
+    type: REMOVE_TOPPING,
+    payload: {
+      id: topping
+    }
+  }
+}
 
-// export function selectSause(word , guesses) {
-//
-//   return {
-//
-//     type: NEW_SAUSE,
-//     payload: {
-//       word: newWord ,
-//        guesses: []
-//      }
-//   }
-// }
-//
-// export function selectToppings(word , guesses) {
-//   const newWord = randomWord()
-//   return {
-//
-//     type: NEW_TOPPING,
-//     payload: {
-//       word: newWord ,
-//        guesses: []
-//      }
-//   }
-// }
-//
-// export function selectDelivery(word , guesses) {
-//   const newWord = randomWord()
-//   return {
-//
-//     type: DRONE_DELIVERY,
-//     payload: {
-//       word: newWord ,
-//        guesses: []
-//      }
-//   }
-// }
+export function droneDelivery(delivery) {
+  return {
+    type: DRONE_DELIVERY,
+    payload: {
+      select: delivery
+    }
+  }
+}
+
+export function notDroneDelivery(nodronedelivery) {
+  return {
+    type: NODRONE_DELIVERY,
+    payload: {
+      select: nodronedelivery
+    }
+  }
+}

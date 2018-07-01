@@ -6,7 +6,7 @@ import {
   DRONE_DELIVERY,
   NODRONE_DELIVERY
 } from '../actions/pizza'
-import { pizzabases, sauses, toppings } from '../shared/data'
+import {pizzabases, sauses, toppings} from '../shared/data'
 
 const initialState = {
   base: {
@@ -31,11 +31,12 @@ const totalPrice = (state) => {
     });
   }
 
-  if (state.delivery === true) totalPrice = totalPrice + totalPrice * 0.1;
-  return +(Math.round(totalPrice + "e+2") + "e-2")
+  if (state.delivery === true)
+    totalPrice = totalPrice + totalPrice * 0.1;
+  return + (Math.round(totalPrice + "e+2") + "e-2")
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case NEW_BASE:
       state.base = {
@@ -43,21 +44,29 @@ export default function (state = initialState, action) {
         price: pizzabases[action.payload.id - 1].price
       }
       state.totalPrice = totalPrice(state);
-      return { ...state };
+      return {
+        ...state
+      };
     case NEW_SAUSE:
       state.sauses = {
         id: sauses[action.payload.id - 1].id,
         price: sauses[action.payload.id - 1].price
       }
       state.totalPrice = totalPrice(state);
-      return { ...state };
+      return {
+        ...state
+      };
     case NEW_TOPPING:
-      state.toppings = [...state.toppings, {
-        id: toppings[action.payload.id - 1].id,
-        price: toppings[action.payload.id - 1].price
-      }]
+      state.toppings = [
+        ...state.toppings, {
+          id: toppings[action.payload.id - 1].id,
+          price: toppings[action.payload.id - 1].price
+        }
+      ]
       state.totalPrice = totalPrice(state);
-      return { ...state };
+      return {
+        ...state
+      };
     case REMOVE_TOPPING:
       var amount = state.toppings.length;
       if (amount === 1) {
@@ -65,19 +74,27 @@ export default function (state = initialState, action) {
       } else {
         var toppingsArray = state.toppings;
         toppingsArray.map((topping, index) => {
-          if(topping.id === action.payload.id - 1) state.toppings.splice(index, 1);
-        });
+          if (topping.id === toppings[action.payload.id - 1].id)
+            state.toppings.splice(index, 1);
+          }
+        );
       }
       state.totalPrice = totalPrice(state);
-      return { ...state }
+      return {
+        ...state
+      }
     case DRONE_DELIVERY:
       state.delivery = action.payload.select;
       state.totalPrice = totalPrice(state);
-      return { ...state }
+      return {
+        ...state
+      }
     case NODRONE_DELIVERY:
       state.delivery = action.payload.select;
       state.totalPrice = totalPrice(state);
-      return { ...state }
+      return {
+        ...state
+      }
     default:
       return state
   }
