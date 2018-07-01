@@ -4,44 +4,48 @@ const initialState = {
 
   toppings: [],
   delivery: false,
-  prices: {
     baseprice: 0,
-    toppingsPrices: [],
-    sausePrice: 0
-  },
+    toppingsPrices: 0,
+    sausePrice: 0,
   totalPrice: 0
 }
 
 export default function(state = initialState, action) {
-  //onst newState = {...state}
+
   switch(action.type) {
+
     case NEW_BASE:
-
-
+    if(state.baseprice === 0.00)
       return {
         ...state,
-        base: action.payload,
-        prices: {
-          baseprice: parseFloat(action.payload)
-        }
-
+          baseprice: action.payload,
+          totalPrice: state.totalPrice + parseFloat(action.payload)
       }
+      else {
+        return{
+          ...state,
+            baseprice: action.payload,
+            totalPrice: + parseFloat(action.payload)
+      }
+    }
 
     case NEW_SAUSE:
+          state.totalPrice = state.totalPrice
+        return{
+          ...state,
+            sausePrice: action.payload,
+            totalPrice: state.totalPrice + parseFloat(action.payload)
+      }
 
+
+    case NEW_TOPPING:
     return {
       ...state,
-      sausePrice: parseFloat(action.payload),
-
+      toppingsPrices: state.toppingsPrices = action.payload,
+      totalPrice: state.totalPrice + parseFloat(action.payload)
     }
 
 
-    // case NEW_TOPPING:
-    // return {
-    //   ...state,
-    //   toppings: state.toppings.concat(action.payload),
-    //   totalPrice:
-    // }
     //
     // case DRONE_DELIVERY:
     // return {

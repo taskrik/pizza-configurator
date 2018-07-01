@@ -7,28 +7,21 @@ import PizzaToppings from './PizzaToppings'
 import PizzaDelivery from './PizzaDelivery'
 import PizzaPrice from './PizzaPrice'
 
-
-
-
-
 class PizzaConfigurator extends React.PureComponent {
-
-
-
   render() {
-    return(
+    return (
 
-        <div>
-          <h1>Make your own Pizza</h1>
-            <PizzaBase />
-            <PizzaSause />
-            <PizzaToppings />
-            <PizzaDelivery />
-            <PizzaPrice />
-        </div>
+      <div className="pizza-configurator">
+        <h1>Make your own Pizza</h1>
+        <PizzaBase />
+        <PizzaSause />
+        <PizzaToppings />
+        <PizzaDelivery />
+        <PizzaPrice />
+      </div>
 
     );
-}
+  }
 }
 
 const mapStateToProps = (state) => {
