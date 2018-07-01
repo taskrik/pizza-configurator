@@ -15,17 +15,15 @@ export function selectBase(base) {
   }
 
 
-// export function selectSause(word , guesses) {
-//
-//   return {
-//
-//     type: NEW_SAUSE,
-//     payload: {
-//       word: newWord ,
-//        guesses: []
-//      }
-//   }
-// }
+export function selectSause(sause) {
+
+  return {
+
+    type: NEW_SAUSE,
+    payload: sause
+     }
+  }
+
 //
 // export function selectToppings(word , guesses) {
 //   const newWord = randomWord()
